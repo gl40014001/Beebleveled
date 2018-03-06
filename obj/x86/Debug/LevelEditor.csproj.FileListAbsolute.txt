@@ -1,0 +1,14 @@
+C:\Users\jason\source\repos\LevelEditor\conwayslife\bin\Debug\ConwaysLife.exe.config
+C:\Users\jason\source\repos\LevelEditor\conwayslife\bin\Debug\ConwaysLife.exe
+C:\Users\jason\source\repos\LevelEditor\conwayslife\bin\Debug\ConwaysLife.pdb
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\MainWindow.g.cs
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\ConwaysLife_MarkupCompile.cache
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\ConwaysLife_MarkupCompile.lref
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\MainWindow.baml
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\ConwaysLife.g.resources
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\Notadesigner.ConwaysLife.Properties.Resources.resources
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\LevelEditor.csproj.GenerateResource.Cache
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\LevelEditor.csproj.CoreCompileInputs.cache
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\ConwaysLife.exe
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\ConwaysLife.pdb
