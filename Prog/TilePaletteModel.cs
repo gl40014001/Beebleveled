@@ -10,6 +10,8 @@ namespace Notadesigner.ConwaysLife.Game
         public delegate void OnUpdate(object sender);
         public event OnUpdate Update;
         public List<Tile> TPMList;
+
+      
         public void UpdateTilePaletteModelList(TileModel tilemodel)
         {
             TPMList = tilemodel.tiles.TileList;

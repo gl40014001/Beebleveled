@@ -22,7 +22,7 @@ namespace Notadesigner.ConwaysLife
             //Upon event "Update" occurring
             //delegate in BoardModel calls MainWindow.model_update
             this.model.Update += new TileModel.OnUpdate(model_Update);
-            this.TPmodel.Update += new TilePaletteModel.OnUpdate(TPmodel_Update);
+        //    this.TPmodel.Update += new TilePaletteModel.OnUpdate(TPmodel_Update);
         }
 
 		void view_Click(object sender, ClickEventArgs e)
@@ -35,14 +35,15 @@ namespace Notadesigner.ConwaysLife
             //This is the event handler called by Boardmodel when it fires the Update event.
             //i.e model_Update handler now calls BoardView.Update method and passes an array of bytes
             //(returned by the BoardModel.Cells method) as a paremeter.
-            this.view.Update(this.model.Cells);
-            TPmodel.UpdateTilePaletteModelList(model);
+            view.Update(this.model.Cells);
+            tpview.Update(model.tiles.TileList);
+           // TPmodel.UpdateTilePaletteModelList(model);
         }
 
-        void TPmodel_Update(object sender)
-        {
-            tpview.Update(TPmodel.TPMList);
-        }
+        //void TPmodel_Update(object sender)
+        //{
+        //    tpview.Update(model.tiles.TileList);
+        //}
 
         private void toggleStart_Click(object sender, RoutedEventArgs e)
         {
@@ -62,7 +63,7 @@ namespace Notadesigner.ConwaysLife
 
         private void tpview_Click(object sender, ClickEventArgs e)
         {
-
+            model.SelectTile(e.X, e.Y);
         }
         private void addTile_Click(object sender, RoutedEventArgs e)
         {

@@ -6,7 +6,7 @@ namespace Notadesigner.ConwaysLife.Game
     public class Constants
     {
         public const double CELL_SIZE = 10;
-
+        public const double TPCELL_SIZE = 5;
         public const int CELLS_X = 16;
 
         public const int CELLS_Y = 16;

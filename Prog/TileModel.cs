@@ -15,7 +15,7 @@ namespace Notadesigner.ConwaysLife.Game
 
         public byte maxTNum = 0;
         public byte TmTileNumber = 0;
-        public TileManager tiles = new TileManager();
+        public Tiles tiles = new Tiles();
 
         public byte[] Cells
         {
@@ -30,10 +30,7 @@ namespace Notadesigner.ConwaysLife.Game
 
 		public TileModel()
 		{
-
             this.current = tiles.TileList[TmTileNumber].Pixels;
-
-
         }
 
 		public Boolean IsActive
@@ -91,6 +88,14 @@ namespace Notadesigner.ConwaysLife.Game
             }
 		}
 
+        public void SelectTile(int x, int y)
+        {
+            TmTileNumber = (byte)(x+(y*4));
+
+            if (null != Update)
+                Update(this);
+        }
+
 		public void AddTile()
 		{
             maxTNum++;
@@ -107,15 +112,17 @@ namespace Notadesigner.ConwaysLife.Game
 		public void ToggleCell(int x, int y)
 		{
 			int i = y * Constants.CELLS_X + x;
-
-			if (0 == this.current[i])
-			{
-				this.current[i] = 1;
-			}
-			else
-			{
-				this.current[i] = 0;
-			}
+            if (i < Constants.CELLS_X * Constants.CELLS_Y)
+            {
+                if (0 == this.current[i])
+                {
+                    this.current[i] = 1;
+                }
+                else
+                {
+                    this.current[i] = 0;
+                }
+            }
 
 			if (null != this.Update)
 			{

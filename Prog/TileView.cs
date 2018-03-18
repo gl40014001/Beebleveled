@@ -64,6 +64,7 @@ namespace Notadesigner.ConwaysLife.Game
 			}
 		}
 
+
 		protected override Visual GetVisualChild(int index)
 		{
 			if (index < 0 || index > this.visuals.Length)
@@ -74,16 +75,19 @@ namespace Notadesigner.ConwaysLife.Game
 			return this.visuals[index];
 		}
 
+
 		protected override Size MeasureOverride(Size availableSize)
 		{
 			return new Size(Constants.CELLS_X * Constants.CELL_SIZE, Constants.CELLS_Y * Constants.CELL_SIZE);
 		}
+
 
 		protected override void OnRender(DrawingContext drawingContext)
 		{
 			this.drawGrid();
 			this.drawCells();
 		}
+
 
 		protected override void OnMouseDown(MouseButtonEventArgs e)
 		{
@@ -100,13 +104,15 @@ namespace Notadesigner.ConwaysLife.Game
 			}
 		}
 
-		protected override void OnMouseUp(MouseButtonEventArgs e)
+
+        protected override void OnMouseUp(MouseButtonEventArgs e)
 		{
 			base.OnMouseUp(e);
 			this.isMouseDown = false;
 		}
 
-		protected override void OnMouseMove(MouseEventArgs e)
+
+        protected override void OnMouseMove(MouseEventArgs e)
 		{
 			base.OnMouseMove(e);
 

@@ -90,20 +90,24 @@ namespace Notadesigner.ConwaysLife.Game
             }
         }
 
+
+
         protected override Visual GetVisualChild(int index)
         {
             if (index < 0 || index > this.visuals.Length)
-            {
                 throw new ArgumentOutOfRangeException("index");
-            }
-
+          
             return this.visuals[index];
         }
 
+
+
         protected override Size MeasureOverride(Size availableSize)
         {
-            return new Size(64 * Constants.CELL_SIZE, 64 * Constants.CELL_SIZE);
+            return new Size(64 * Constants.TPCELL_SIZE, 64 * Constants.TPCELL_SIZE);
         }
+
+
 
         protected override void OnRender(DrawingContext drawingContext)
         {
@@ -111,20 +115,22 @@ namespace Notadesigner.ConwaysLife.Game
             this.drawCells();
         }
 
+
+
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
 
             this.isMouseDown = true;
             Point pt = e.GetPosition(this);
-            int x = (int)((pt.X) / Constants.CELL_SIZE);
-            int y = (int)((pt.Y) / Constants.CELL_SIZE);
+            int x = (int)((pt.X) / (Constants.TPCELL_SIZE * Constants.CELLS_X+1));
+            int y = (int)((pt.Y) / (Constants.TPCELL_SIZE * Constants.CELLS_Y+1));
 
             if (null != this.Click)
-            {
                 this.Click(this, new ClickEventArgs(x, y));
-            }
         }
+
+
 
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
@@ -134,23 +140,20 @@ namespace Notadesigner.ConwaysLife.Game
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            base.OnMouseMove(e);
+          //    base.OnMouseMove(e);
+          //  ;
+          //  Point pt = e.GetPosition(this);
+          //  int x = (int)((pt.X) / Constants.CELLS_X);
+          //  int y = (int)((pt.Y) / Constants.CELLS_Y);
 
-            Point pt = e.GetPosition(this);
-            int x = (int)((pt.X) / Constants.CELL_SIZE);
-            int y = (int)((pt.Y) / Constants.CELL_SIZE);
-            if (!this.isMouseDown || (this.previous.X == x && this.previous.Y == y))
-            {
-                return;
-            }
+         //   if (!this.isMouseDown || (this.previous.X == x && this.previous.Y == y))
+         //       return;
+            
+         //   this.previous.X = x;
+         //   this.previous.Y = y;
 
-            this.previous.X = x;
-            this.previous.Y = y;
-
-            if (null != this.Click)
-            {
-                this.Click(this, new ClickEventArgs(x, y));
-            }
+        //    if (null != this.Click)
+        //        this.Click(this, new ClickEventArgs(x, y));
         }
 
 
@@ -168,83 +171,73 @@ namespace Notadesigner.ConwaysLife.Game
         {
             using (DrawingContext dc = this.grid.RenderOpen())
             {
-                Rect background = new Rect(0, 0, Constants.CELL_SIZE * Constants.CELLS_X, Constants.CELL_SIZE * Constants.CELLS_Y);
+                Rect background = new Rect( 
+                                    0, 
+                                    0, 
+                                    Constants.TPCELL_SIZE * Constants.CELLS_X, 
+                                    Constants.TPCELL_SIZE * Constants.CELLS_Y);
+
                 dc.DrawRectangle(Brushes.Gray, null, background);
 
-                Rect anotherbackground = new Rect(Constants.CELL_SIZE * Constants.CELLS_X, 0, Constants.CELL_SIZE * Constants.CELLS_X, Constants.CELL_SIZE * Constants.CELLS_Y);
+                Rect anotherbackground = new Rect( 
+                                            Constants.TPCELL_SIZE * Constants.CELLS_X, 
+                                            0, 
+                                            Constants.TPCELL_SIZE * Constants.CELLS_X, 
+                                            Constants.TPCELL_SIZE * Constants.CELLS_Y);
+
                 dc.DrawRectangle(Brushes.Red, null, anotherbackground);
 
-
-                //  Point start = new Point(0, 0);
-                //Point end = new Point(0, background.Bottom);
-                //for (int i = 0; i < Constants.CELLS_X; i++)
-                //{
-                //    dc.DrawLine(outline, start, end);
-                //    start.Offset(Constants.CELL_SIZE, 0);
-                //    end.Offset(Constants.CELL_SIZE, 0);
-                //}
-
-                // start = new Point(0, 0);
-                // end = new Point(background.Right, 0);
-                // for (int i = 0; i < Constants.CELLS_X; i++)
-                // {
-                //     dc.DrawLine(outline, start, end);
-                //     start.Offset(0, Constants.CELL_SIZE);
-                //     end.Offset(0, Constants.CELL_SIZE);
-                // }
             }
         }
 
+
         private void drawCells()
         {
-           if (null == values)
-           {
-                return;
-           }
 
-            
-
-
+            if (null == values)
+               return;
+     
+    
             using (DrawingContext dc = this.cells.RenderOpen())
             {
-                Rect rect = new Rect(OUTLINE_WIDTH, OUTLINE_WIDTH, Constants.CELL_SIZE - OUTLINE_WIDTH, Constants.CELL_SIZE - OUTLINE_WIDTH);
-
-               
+                Rect rect = new Rect(
+                    OUTLINE_WIDTH, 
+                    OUTLINE_WIDTH, 
+                    Constants.TPCELL_SIZE - OUTLINE_WIDTH, 
+                    Constants.TPCELL_SIZE - OUTLINE_WIDTH);
+    
                 int yOffset = 0;
                 int xOffset = 0;
-
-                
-                
-
-                foreach (Tile tilenumber in TpvTilesList)
+                   
+                foreach (Tile tile in TpvTilesList)
                 {
-                    values = tilenumber.Pixels;
-    
-
+                    values = tile.Pixels; 
                     int i = 0;
+
                     for (int y = yOffset; y < Constants.CELLS_Y+yOffset; y++)
                     {
                         for (int x = xOffset; x < Constants.CELLS_X+xOffset; x++)
                         {
-                            rect.Location = new Point((x * Constants.CELL_SIZE) + OUTLINE_WIDTH, (y * Constants.CELL_SIZE) + OUTLINE_WIDTH);
+                            rect.Location = new Point(
+                                (x * Constants.TPCELL_SIZE) + OUTLINE_WIDTH, 
+                                (y * Constants.TPCELL_SIZE) + OUTLINE_WIDTH);
 
-                            if (values[i] == 0)
-                            {
-                                dc.DrawRectangle(Constants.GetWindowsColour(Constants.Colour.Black), null, rect);
-                            }
-                            else
-                            { dc.DrawRectangle(Constants.GetWindowsColour(DefaultPalette[values[i]]), null, rect); }
-
+                            dc.DrawRectangle(
+                                Constants.GetWindowsColour(DefaultPalette[values[i]]), 
+                                null, 
+                                rect);
                             i++;
                         }
                     }
-                    xOffset = xOffset + Constants.CELLS_X;
 
-                    if (xOffset > (Constants.CELLS_X * 3))
+                    xOffset = xOffset + Constants.CELLS_X+1;
+
+                    if (xOffset > ((Constants.CELLS_X * 3)+3))
                     {
-                        yOffset = yOffset + Constants.CELLS_Y;
+                        yOffset = yOffset + Constants.CELLS_Y+1;
                         xOffset = 0;
                     }
+
                 }
             }
         }

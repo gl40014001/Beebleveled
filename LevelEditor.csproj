@@ -61,7 +61,7 @@
   <ItemGroup>
     <Compile Include="Prog\Tile.cs" />
     <Compile Include="Prog\ClickEventArgs.cs" />
-    <Compile Include="Prog\TileManager.cs" />
+    <Compile Include="Prog\Tiles.cs" />
     <Compile Include="Prog\TilePaletteModel.cs" />
     <Compile Include="Prog\TilePaletteView.cs" />
     <Compile Include="MainWindow.xaml.cs">
