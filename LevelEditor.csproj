@@ -59,11 +59,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Prog\PaletteModel.cs" />
+    <Compile Include="Prog\PaletteView.cs" />
     <Compile Include="Prog\Tile.cs" />
     <Compile Include="Prog\ClickEventArgs.cs" />
     <Compile Include="Prog\Tiles.cs" />
-    <Compile Include="Prog\TilePaletteModel.cs" />
-    <Compile Include="Prog\TilePaletteView.cs" />
+    <Compile Include="Prog\TilePanelModel.cs" />
+    <Compile Include="Prog\TilePanelView.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

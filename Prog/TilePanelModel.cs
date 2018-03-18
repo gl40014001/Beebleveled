@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Notadesigner.ConwaysLife.Game
 {
-    class TilePaletteModel
+    class TilePanelModel
     {
         public delegate void OnUpdate(object sender);
         public event OnUpdate Update;
         public List<Tile> TPMList;
 
       
-        public void UpdateTilePaletteModelList(TileModel tilemodel)
+        public void UpdateTileList(TileModel tilemodel)
         {
             TPMList = tilemodel.tiles.TileList;
             if (null != this.Update)

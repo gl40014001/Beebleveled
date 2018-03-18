@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Notadesigner.ConwaysLife.Game
 {
-    public class TilePaletteView : FrameworkElement
+    public class TilePanelView : FrameworkElement
     {
         public delegate void ClickHandler(object sender, ClickEventArgs e);
 
@@ -33,7 +33,7 @@ namespace Notadesigner.ConwaysLife.Game
         public Constants.Colour[] defaultPalette;
 
 
-        public TilePaletteView()
+        public TilePanelView()
             : base()
         {
             int NumColours = 4; 
@@ -66,12 +66,13 @@ namespace Notadesigner.ConwaysLife.Game
           
         }
 
-        public void Update(List<Tile> TpTiles)
+        public void Update(List<Tile> TpTiles, Constants.Colour[] Palette)
         {
             
             TpvTilesList = TpTiles;
             values = TpvTilesList[0].Pixels;
 
+            DefaultPalette = Palette;
 
             this.drawGrid();
             this.drawCells();

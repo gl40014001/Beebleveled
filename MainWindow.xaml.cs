@@ -12,7 +12,8 @@ namespace Notadesigner.ConwaysLife
        
      
         public TileModel model = new TileModel();
-        private TilePaletteModel TPmodel = new TilePaletteModel();
+        //  private TilePaletteModel TPmodel = new TilePaletteModel();
+        private PaletteModel palettemodel = new PaletteModel();
         public MainWindow()
         {
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace Notadesigner.ConwaysLife
             //Upon event "Update" occurring
             //delegate in BoardModel calls MainWindow.model_update
             this.model.Update += new TileModel.OnUpdate(model_Update);
+            palettemodel.Update += new PaletteModel.OnUpdate(palette_Update);
         //    this.TPmodel.Update += new TilePaletteModel.OnUpdate(TPmodel_Update);
         }
 
@@ -36,7 +38,8 @@ namespace Notadesigner.ConwaysLife
             //i.e model_Update handler now calls BoardView.Update method and passes an array of bytes
             //(returned by the BoardModel.Cells method) as a paremeter.
             view.Update(this.model.Cells);
-            tpview.Update(model.tiles.TileList);
+            tpview.Update(model.tiles.TileList, palettemodel.currentPalette);
+           
            // TPmodel.UpdateTilePaletteModelList(model);
         }
 
@@ -44,6 +47,13 @@ namespace Notadesigner.ConwaysLife
         //{
         //    tpview.Update(model.tiles.TileList);
         //}
+
+        void palette_Update(object sender)
+        {
+            paletteview.Update(palettemodel.currentPalette);
+            tpview.Update(model.tiles.TileList, palettemodel.currentPalette);
+
+        }
 
         private void toggleStart_Click(object sender, RoutedEventArgs e)
         {
@@ -65,6 +75,12 @@ namespace Notadesigner.ConwaysLife
         {
             model.SelectTile(e.X, e.Y);
         }
+
+        private void paletteview_Click(object sender, ClickEventArgs e)
+        {
+            palettemodel.ChangeColour(e.X, e.Y);
+        }
+
         private void addTile_Click(object sender, RoutedEventArgs e)
         {
             if (this.model.IsActive)
