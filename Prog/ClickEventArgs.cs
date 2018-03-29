@@ -4,14 +4,23 @@ namespace Notadesigner.ConwaysLife.Game
 {
 	public class ClickEventArgs : EventArgs
 	{
-		public ClickEventArgs(int x, int y)
+		public ClickEventArgs(int x, int y, Constants.Mousebutton button)
 			: base()
 		{
-			this.X = x;
+           
+            this.X = x;
 			this.Y = y;
+            this.BUTTON = button;
 		}
 
-		public int X
+        public ClickEventArgs(int x, int y)
+            : base()
+        {
+
+            this.X = x;
+            this.Y = y;
+        }
+        public int X
 		{
 			get;
 			private set;
@@ -22,5 +31,11 @@ namespace Notadesigner.ConwaysLife.Game
 			get;
 			private set;
 		}
+
+        public Constants.Mousebutton BUTTON
+        {
+            get;
+            private set;
+        }
 	}
 }

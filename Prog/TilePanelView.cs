@@ -14,7 +14,7 @@ namespace Notadesigner.ConwaysLife.Game
 
         public event ClickHandler Click;
 
-        private const double OUTLINE_WIDTH = 1;
+        private const double OUTLINE_WIDTH = 0;
 
         private DrawingVisual[] visuals;
 
@@ -24,7 +24,6 @@ namespace Notadesigner.ConwaysLife.Game
 
         private bool isMouseDown;
 
-        private Point previous = new Point();
 
         private byte[] values;
         private List<Tile> TpvTilesList;
@@ -59,7 +58,7 @@ namespace Notadesigner.ConwaysLife.Game
             this.visuals = new DrawingVisual[] { this.grid, this.cells };
             //this.visuals = new DrawingVisual[] { this.grid };
 
-            this.drawGrid();
+           // this.drawGrid();
             // this.drawCells();
 
            
@@ -74,7 +73,7 @@ namespace Notadesigner.ConwaysLife.Game
 
             DefaultPalette = Palette;
 
-            this.drawGrid();
+          // this.drawGrid();
             this.drawCells();
         }
 
@@ -112,7 +111,7 @@ namespace Notadesigner.ConwaysLife.Game
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            this.drawGrid();
+            //this.drawGrid();
             this.drawCells();
         }
 
@@ -141,20 +140,7 @@ namespace Notadesigner.ConwaysLife.Game
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-          //    base.OnMouseMove(e);
-          //  ;
-          //  Point pt = e.GetPosition(this);
-          //  int x = (int)((pt.X) / Constants.CELLS_X);
-          //  int y = (int)((pt.Y) / Constants.CELLS_Y);
-
-         //   if (!this.isMouseDown || (this.previous.X == x && this.previous.Y == y))
-         //       return;
-            
-         //   this.previous.X = x;
-         //   this.previous.Y = y;
-
-        //    if (null != this.Click)
-        //        this.Click(this, new ClickEventArgs(x, y));
+         
         }
 
 
@@ -163,10 +149,7 @@ namespace Notadesigner.ConwaysLife.Game
             get { return this.defaultPalette; }
             set { this.defaultPalette = value; }
         }
-
-
-
-            
+      
 
         private void drawGrid()
         {
@@ -242,5 +225,7 @@ namespace Notadesigner.ConwaysLife.Game
                 }
             }
         }
+
+
     }
 }

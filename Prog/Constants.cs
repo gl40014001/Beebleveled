@@ -3,35 +3,26 @@ using System.Windows.Media;
 
 namespace Notadesigner.ConwaysLife.Game
 {
-    public class Constants
+    public static  class Constants
     {
-        public const double CELL_SIZE = 10;
-        public const double TPCELL_SIZE = 5;
-        public const int CELLS_X = 16;
+        public static double CELL_SIZE = 10;
+        public static double TPCELL_SIZE = 5;
+        public static int CELLS_X = 16;
 
-        public const int CELLS_Y = 16;
+        public static int CELLS_Y = 16;
 
-        public Colour[] defaultPalette;
-        public const int Logical_BLACK = 0;
-        public const int Logical_RED = 1;
-        public const int Logical_GREEN = 2;
-        public const int Logical_YELLOW = 3;
-        public const int Logical_BLUE = 4;
-        public const int Logical_MAGENTA = 5;
-        public const int Logical_CYAN = 6;
-        public const int Logical_WHITE = 7;
-
-        public Constants()
+        public static Colour[] defaultPalette =
         {
-            DefaultPalette[0] = Colour.Yellow;
-            DefaultPalette[1] = Colour.Green;
-            DefaultPalette[2] = Colour.Red;
-            DefaultPalette[3] = Colour.Black;
-
-        }
-
-
-
+            Colour.Black,
+            Colour.Red,
+            Colour.Green,
+            Colour.Yellow,
+            Colour.Blue,
+            Colour.Magenta,
+            Colour.Cyan,
+            Colour.White
+        };
+    
         public enum Colour
         {
             Black = 0,
@@ -44,7 +35,11 @@ namespace Notadesigner.ConwaysLife.Game
             White = 7
         }
 
-
+        public enum Mousebutton
+        {
+            Left = 0,
+            Right = 1
+        }
         public static SolidColorBrush GetWindowsColour(Colour beebColour)
         {
             switch (beebColour)
@@ -63,10 +58,10 @@ namespace Notadesigner.ConwaysLife.Game
 
 
 
-        public Colour[] DefaultPalette
+        public static Colour[] DefaultPalette
         {
-            get { return this.defaultPalette; }
-            set { this.defaultPalette = value; }
+            get { return defaultPalette; }
+            set { defaultPalette = value; }
         }
 
     }

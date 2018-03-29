@@ -5,38 +5,29 @@ using System.Text;
 
 namespace Notadesigner.ConwaysLife.Game
 {
-    class PaletteModel
+    public class PaletteModel
     {
 
         public delegate void OnUpdate(object sender);
         public event OnUpdate Update;
         public int NumColours = 4;
-        public int[] pal = { 3, 2, 1, 0 };
-        private Constants.Colour[] defaultPalette;
+        public int[] pal = { 0, 1, 2, 3 };
         public Constants.Colour[] currentPalette;
+        public int ChangedPaletteIndex;
 
 
-        public PaletteModel()
+        public PaletteModel(Constants.Colour[] defaultpalette)
         {
-            DefaultPalette = new Constants.Colour[8];
-
-            DefaultPalette[0] = Constants.Colour.Black;
-            DefaultPalette[1] = Constants.Colour.Red;
-            DefaultPalette[2] = Constants.Colour.Green;
-            DefaultPalette[3] = Constants.Colour.Yellow;
-            DefaultPalette[4] = Constants.Colour.Blue;
-            DefaultPalette[5] = Constants.Colour.Magenta;
-            DefaultPalette[6] = Constants.Colour.Cyan;
-            DefaultPalette[7] = Constants.Colour.White;
+            
 
             CurrentPalette = new Constants.Colour[NumColours];
             switch (NumColours)
             {
                 case 4:
-                    CurrentPalette[0] = defaultPalette[pal[0]];
-                    CurrentPalette[1] = defaultPalette[pal[1]];
-                    CurrentPalette[2] = defaultPalette[pal[2]];
-                    CurrentPalette[3] = defaultPalette[pal[3]];
+                    CurrentPalette[0] = defaultpalette[pal[0]];
+                    CurrentPalette[1] = defaultpalette[pal[1]];
+                    CurrentPalette[2] = defaultpalette[pal[2]];
+                    CurrentPalette[3] = defaultpalette[pal[3]];
                     break;
             }
 
@@ -50,20 +41,15 @@ namespace Notadesigner.ConwaysLife.Game
             if (pal[index] > 7)
               pal[index] = 0;
 
+            CurrentPalette[index] = Constants.defaultPalette[pal[index]];
 
-            CurrentPalette[index] = defaultPalette[pal[index]];
+            ChangedPaletteIndex = index;
             if (null != this.Update)
-            {
                 this.Update(this);
-            }
         }
     
 
-        public Constants.Colour[] DefaultPalette
-        {
-            get { return this.defaultPalette; }
-            set { this.defaultPalette = value; }
-        }
+     
 
         public Constants.Colour[] CurrentPalette
         {

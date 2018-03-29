@@ -19,6 +19,11 @@ namespace Notadesigner.ConwaysLife.Game
             this.pixels = new byte[Constants.CELLS_X * Constants.CELLS_Y];
 
         }
+
+        public Tile()
+        {
+        }
+
         public byte TileNumber
         {
             get { return tileNumber; }

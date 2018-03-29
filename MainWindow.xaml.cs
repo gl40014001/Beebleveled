@@ -9,11 +9,14 @@ namespace Notadesigner.ConwaysLife
     /// </summary>
     public partial class MainWindow : Window
     {
-       
-     
+
+        public Tiles tiles = new Tiles();
         public TileModel model = new TileModel();
-        //  private TilePaletteModel TPmodel = new TilePaletteModel();
-        private PaletteModel palettemodel = new PaletteModel();
+
+        public PaletteModel palettemodel = new PaletteModel(Constants.defaultPalette);
+        public SelectedColourModel selectedcolours = new SelectedColourModel(Constants.defaultPalette);
+        public Save save = new Save();
+        public Load load = new Load();
         public MainWindow()
         {
             InitializeComponent();
@@ -24,12 +27,15 @@ namespace Notadesigner.ConwaysLife
             //delegate in BoardModel calls MainWindow.model_update
             this.model.Update += new TileModel.OnUpdate(model_Update);
             palettemodel.Update += new PaletteModel.OnUpdate(palette_Update);
-        //    this.TPmodel.Update += new TilePaletteModel.OnUpdate(TPmodel_Update);
+            selectedcolours.Update += new SelectedColourModel.OnUpdate(selectedcolours_Update);
+            model.Init(tiles);
+            tpview.Update(tiles.TileList, palettemodel.currentPalette);
+            //    this.TPmodel.Update += new TilePaletteModel.OnUpdate(TPmodel_Update);
         }
 
 		void view_Click(object sender, ClickEventArgs e)
 		{
-			this.model.ToggleCell(e.X, e.Y);
+			this.model.ToggleCell(e.X, e.Y, e.BUTTON);
 		}
 
         void model_Update(object sender)
@@ -37,39 +43,29 @@ namespace Notadesigner.ConwaysLife
             //This is the event handler called by Boardmodel when it fires the Update event.
             //i.e model_Update handler now calls BoardView.Update method and passes an array of bytes
             //(returned by the BoardModel.Cells method) as a paremeter.
-            view.Update(this.model.Cells);
-            tpview.Update(model.tiles.TileList, palettemodel.currentPalette);
            
-           // TPmodel.UpdateTilePaletteModelList(model);
+            view.Update(this.model.Cells(tiles));
+            tpview.Update(tiles.TileList, palettemodel.currentPalette);
+          
         }
 
-        //void TPmodel_Update(object sender)
-        //{
-        //    tpview.Update(model.tiles.TileList);
-        //}
-
+     
         void palette_Update(object sender)
         {
             paletteview.Update(palettemodel.currentPalette);
-            tpview.Update(model.tiles.TileList, palettemodel.currentPalette);
-
+            tpview.Update(tiles.TileList, palettemodel.currentPalette);
+            selectedcolours.PaletteUpdated(palettemodel.ChangedPaletteIndex, palettemodel.currentPalette);
+            scview.Update(selectedcolours.currentPalette);
+            model.PaletteUpdated(selectedcolours.pal);
+            view.Update(model.Cells(tiles), palettemodel.currentPalette);
         }
 
-        private void toggleStart_Click(object sender, RoutedEventArgs e)
+        void selectedcolours_Update(object sender)
         {
-            if (this.model.IsActive)
-            {
-                this.btnAdd.IsEnabled = true;
-                ((Button)sender).Content = "Start";
-                this.model.Stop();
-            }
-            else
-            {
-                this.btnAdd.IsEnabled = false;
-                ((Button)sender).Content = "Stop";
-                this.model.Start();
-            }
+            scview.Update(selectedcolours.currentPalette);
         }
+
+
 
         private void tpview_Click(object sender, ClickEventArgs e)
         {
@@ -81,30 +77,37 @@ namespace Notadesigner.ConwaysLife
             palettemodel.ChangeColour(e.X, e.Y);
         }
 
-        private void addTile_Click(object sender, RoutedEventArgs e)
+        private void scview_Click(object sender, ClickEventArgs e)
         {
-            if (this.model.IsActive)
-            {
-                return;
-            }
+             selectedcolours.ChangeColour(e.X, e.Y, palettemodel.currentPalette);
+             model.PaletteUpdated(selectedcolours.pal);
+           // view.Update(model.Cells, palettemodel.currentPalette);
+        }
 
-            this.model.AddTile();
+        private void tstLoad_Click(object sender, RoutedEventArgs e)
+        {
+            load.FromFile(tiles);
+
+           
+            //this.model.AddTile();
+
         }
 
         private void clear_Click(object sender, RoutedEventArgs e)
         {
-            this.btnAdd.IsEnabled = true;
-            this.btnStart.Content = "Start";
-
+            //this.btnAdd.IsEnabled = true;
+           
             this.model.Clear();
         }
 
-        private void nextTile_Click(object sender, RoutedEventArgs e)
-        {
-            this.btnAdd.IsEnabled = true;
-            this.btnStart.Content = "Start";
+    
 
-            this.model.NextTile();
+        private void tstSave_Click(object sender, RoutedEventArgs e)
+        {
+            save.ToFile(tiles, palettemodel,selectedcolours);
+
         }
+
+     
     }
 }

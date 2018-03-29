@@ -29,10 +29,26 @@ namespace Notadesigner.ConwaysLife.Game
 
 		private Pen outline = new Pen(Brushes.LightGray, OUTLINE_WIDTH);
 
+        public Constants.Colour[] defaultPalette;
+        public int NumColours = 4;
+        Constants.Mousebutton mbpressed;
         public TileView()
             : base()
         {
-			this.AddVisualChild(this.grid);
+
+            Current = new Constants.Colour[NumColours];
+            switch (NumColours)
+            {
+                case 4:
+                    Current[0] = Constants.defaultPalette[0];
+                    Current[1] = Constants.defaultPalette[1];
+                    Current[2] = Constants.defaultPalette[2];
+                    Current[3] = Constants.defaultPalette[3];
+                    break;
+            }
+
+             values = new byte[Constants.CELLS_X * Constants.CELLS_Y];
+            this.AddVisualChild(this.grid);
 			this.AddLogicalChild(this.grid);
 
 			this.AddVisualChild(this.cells);
@@ -51,7 +67,15 @@ namespace Notadesigner.ConwaysLife.Game
 			this.drawCells();
         }
 
-		public void Clear()
+        public void Update(byte[] values, Constants.Colour[] palette)
+        {
+
+            defaultPalette = palette;
+            this.values = values;
+            this.drawGrid();
+            this.drawCells();
+        }
+        public void Clear()
 		{
 			this.drawGrid();
 		}
@@ -92,15 +116,33 @@ namespace Notadesigner.ConwaysLife.Game
 		protected override void OnMouseDown(MouseButtonEventArgs e)
 		{
 			base.OnMouseDown(e);
-
+            
+            
+           
 			this.isMouseDown = true;
+           
 			Point pt = e.GetPosition(this);
-			int x = (int)((pt.X) / Constants.CELL_SIZE);
+            MouseButtonState mb = e.RightButton;
+            MouseButtonState mbl = e.LeftButton;
+            
+
+            if (mb == MouseButtonState.Pressed)
+            {
+                mbpressed = Constants.Mousebutton.Right;
+            }
+
+            if (mbl == MouseButtonState.Pressed)
+            {
+                mbpressed = Constants.Mousebutton.Left;
+            }
+
+
+            int x = (int)((pt.X) / Constants.CELL_SIZE);
 			int y = (int)((pt.Y) / Constants.CELL_SIZE);
 
 			if (null != this.Click)
 			{
-				this.Click(this, new ClickEventArgs(x, y));
+				this.Click(this, new ClickEventArgs(x, y, mbpressed));
 			}
 		}
 
@@ -129,7 +171,7 @@ namespace Notadesigner.ConwaysLife.Game
 			
 			if (null != this.Click)
 			{
-				this.Click(this, new ClickEventArgs(x, y));
+				this.Click(this, new ClickEventArgs(x, y, mbpressed));
 			}
 		}
 
@@ -167,7 +209,10 @@ namespace Notadesigner.ConwaysLife.Game
 				return;
 			}
 
-			using (DrawingContext dc = this.cells.RenderOpen())
+           
+
+
+            using (DrawingContext dc = this.cells.RenderOpen())
 			{
 				int x = 0;
 				int y = 0;
@@ -179,12 +224,16 @@ namespace Notadesigner.ConwaysLife.Game
 					y = (i / Constants.CELLS_X);
 					rect.Location = new Point((x * Constants.CELL_SIZE) + OUTLINE_WIDTH, (y * Constants.CELL_SIZE) + OUTLINE_WIDTH);
 					
-					if (1 == values[i])
-					{
-						dc.DrawRectangle(Brushes.Red, null, rect);
-					}
+						dc.DrawRectangle(Constants.GetWindowsColour(Current[values[i]]), null, rect);
+					
 				}
 			}
 		}
+
+        public Constants.Colour[] Current
+        {
+            get { return this.defaultPalette; }
+            set { this.defaultPalette = value; }
+        }
     }
 }

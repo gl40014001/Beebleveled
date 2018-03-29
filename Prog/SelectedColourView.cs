@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Notadesigner.ConwaysLife.Game
 {
-    public class PaletteView : FrameworkElement
+    public class SelectedColourView : FrameworkElement 
     {
         public delegate void ClickHandler(object sender, ClickEventArgs e);
 
@@ -25,21 +25,20 @@ namespace Notadesigner.ConwaysLife.Game
         private Pen outline = new Pen(Brushes.LightGray, OUTLINE_WIDTH);
 
         public Constants.Colour[] defaultPalette;
-        public int NumColours = 4;
+        public int NumColours = 2;
 
-        public PaletteView()
+        public SelectedColourView()
             : base()
         {
-           
+
             Current = new Constants.Colour[NumColours];
 
             switch (NumColours)
             {
-                case 4:
+                case 2:
                     Current[0] = Constants.defaultPalette[0];
                     Current[1] = Constants.defaultPalette[1];
-                    Current[2] = Constants.defaultPalette[2];
-                    Current[3] = Constants.defaultPalette[3];
+              
                     break;
             }
 
@@ -48,15 +47,15 @@ namespace Notadesigner.ConwaysLife.Game
             this.AddLogicalChild(this.grid);
             this.visuals = new DrawingVisual[] { this.grid };
             this.drawGrid();
-           
+
         }
 
-        public void Update(Constants.Colour[] Palette)
+        public void Update(Constants.Colour[] palette)
         {
-            Current = Palette;
-         
+            Current = palette;
+
             this.drawGrid();
-          
+
         }
 
         public void Clear()
@@ -94,7 +93,7 @@ namespace Notadesigner.ConwaysLife.Game
         protected override void OnRender(DrawingContext drawingContext)
         {
             this.drawGrid();
-            
+
         }
 
 
@@ -102,13 +101,13 @@ namespace Notadesigner.ConwaysLife.Game
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
-      
+
             this.isMouseDown = true;
             Point pt = e.GetPosition(this);
             int x = (int)((pt.X) / (Constants.TPCELL_SIZE * Constants.CELLS_X));
             int y = (int)((pt.Y) / (Constants.TPCELL_SIZE * Constants.CELLS_Y));
 
-     
+
             if (null != this.Click)
                 this.Click(this, new ClickEventArgs(x, y));
         }
@@ -124,7 +123,7 @@ namespace Notadesigner.ConwaysLife.Game
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-           
+
         }
 
 
@@ -139,7 +138,7 @@ namespace Notadesigner.ConwaysLife.Game
         {
             using (DrawingContext dc = this.grid.RenderOpen())
             {
-                Rect palettebox = new Rect(
+                Rect selectedColoursBox = new Rect(
                                     0,
                                     0,
                                     Constants.TPCELL_SIZE * Constants.CELLS_X,
@@ -148,24 +147,23 @@ namespace Notadesigner.ConwaysLife.Game
                 int yOffset = 0;
                 int xOffset = 0;
 
-             
+
                 for (int colour = 0; colour < NumColours; colour++)
                 {
-                    palettebox.Location = new Point(xOffset, yOffset);
+                    selectedColoursBox.Location = new Point(xOffset, yOffset);
 
                     dc.DrawRectangle(
                         Constants.GetWindowsColour(Current[colour]),
                         null,
-                        palettebox);
+                        selectedColoursBox);
 
-                    xOffset = xOffset +( (int)Constants.TPCELL_SIZE * Constants.CELLS_X);
+                    xOffset = xOffset + ((int)Constants.TPCELL_SIZE * Constants.CELLS_X);
 
-                    if (xOffset > ( ((int)Constants.TPCELL_SIZE * Constants.CELLS_X)) *3)
+                    if (xOffset > (((int)Constants.TPCELL_SIZE * Constants.CELLS_X)) * 3)
                         yOffset = yOffset + ((int)Constants.TPCELL_SIZE * Constants.CELLS_Y);
 
                 }
             }
         }
-        
     }
 }

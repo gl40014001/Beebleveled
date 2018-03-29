@@ -7,13 +7,15 @@ namespace Notadesigner.ConwaysLife.Game
 {
     public class Tiles
     {
-        public byte TMnumber = 0;
+        public byte TMnumber;
         public List<Tile> TileList = new List<Tile>();
         public Tiles()
         {
-            this.Add(TMnumber);
-            
-          
+
+            for (TMnumber = 0; TMnumber <= 15; TMnumber++)
+            {
+                Add(TMnumber);
+            }
         }
 
         public void Add(byte tileNumber)
