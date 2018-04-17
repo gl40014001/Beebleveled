@@ -78,6 +78,7 @@
     <Compile Include="Prog\Load.cs" />
     <Compile Include="Prog\PaletteModel.cs" />
     <Compile Include="Prog\PaletteView.cs" />
+    <Compile Include="Prog\Draw.cs" />
     <Compile Include="Prog\Save.cs" />
     <Compile Include="Prog\SelectedColourModel.cs" />
     <Compile Include="Prog\SelectedColourView.cs" />
@@ -89,10 +90,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Prog\TileView.cs" />
-    <Compile Include="Prog\TileModel.cs" />
+    <Compile Include="Prog\TileEdView.cs" />
+    <Compile Include="Prog\TileEdModel.cs" />
     <Compile Include="Prog\Constants.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Prog\UndoRedo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

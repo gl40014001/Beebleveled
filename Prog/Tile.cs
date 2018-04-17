@@ -7,21 +7,31 @@ namespace Notadesigner.ConwaysLife.Game
 {
     public class Tile
     {
-        private byte[] pixels;
-        private byte tileNumber;
-        private int tilePaletteX;
-        private int tilePaletteY;
+        public byte[] pixels;
+        public byte[] prevPixels;
+        public byte tileNumber;
+        public UndoRedo undoredo = new UndoRedo();
 
+        public Tile DeepCopy()
+        {
+            Tile other = (Tile)this.MemberwiseClone();
+            // pixels.
+            other.tileNumber = TileNumber;
+
+            return other;
+        }
 
         public Tile(byte tileNumber)
         {
             this.tileNumber = tileNumber;
             this.pixels = new byte[Constants.CELLS_X * Constants.CELLS_Y];
-
+            prevPixels = new byte[Constants.CELLS_X * Constants.CELLS_Y];
+            // Do();
         }
 
         public Tile()
         {
+         //   Do();
         }
 
         public byte TileNumber
@@ -33,7 +43,28 @@ namespace Notadesigner.ConwaysLife.Game
         public byte[] Pixels
         {
             get { return pixels; }
-            set { pixels = value; }
+            set {
+
+                pixels = value;
+               
+            }
+        }
+
+
+        public void Undo()
+        {
+           
+            Pixels = undoredo.CmdUndo(Pixels);
+           
+        }
+
+        public void Do(int index, byte pixelValue)
+        {
+            pixels.CopyTo(prevPixels, 0);
+            undoredo.CmdDo(prevPixels);
+
+            Pixels[index] = pixelValue;
+            
         }
 
     }

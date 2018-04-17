@@ -18,8 +18,6 @@ namespace Notadesigner.ConwaysLife.Game
 
         private DrawingVisual[] visuals;
 
-        private DrawingVisual grid = new DrawingVisual();
-
         private DrawingVisual cells = new DrawingVisual();
 
         private bool isMouseDown;
@@ -48,21 +46,13 @@ namespace Notadesigner.ConwaysLife.Game
                     break;
             }
 
-         
-            this.AddVisualChild(this.grid);
-            this.AddLogicalChild(this.grid);
+      
 
             this.AddVisualChild(this.cells);
             this.AddLogicalChild(this.cells);
 
-            this.visuals = new DrawingVisual[] { this.grid, this.cells };
-            //this.visuals = new DrawingVisual[] { this.grid };
-
-           // this.drawGrid();
-            // this.drawCells();
-
-           
-          
+            this.visuals = new DrawingVisual[] {this.cells };
+                  
         }
 
         public void Update(List<Tile> TpTiles, Constants.Colour[] Palette)
@@ -77,10 +67,7 @@ namespace Notadesigner.ConwaysLife.Game
             this.drawCells();
         }
 
-        public void Clear()
-        {
-            this.drawGrid();
-        }
+    
 
         protected override int VisualChildrenCount
         {
@@ -151,29 +138,7 @@ namespace Notadesigner.ConwaysLife.Game
         }
       
 
-        private void drawGrid()
-        {
-            using (DrawingContext dc = this.grid.RenderOpen())
-            {
-                Rect background = new Rect( 
-                                    0, 
-                                    0, 
-                                    Constants.TPCELL_SIZE * Constants.CELLS_X, 
-                                    Constants.TPCELL_SIZE * Constants.CELLS_Y);
-
-                dc.DrawRectangle(Brushes.Gray, null, background);
-
-                Rect anotherbackground = new Rect( 
-                                            Constants.TPCELL_SIZE * Constants.CELLS_X, 
-                                            0, 
-                                            Constants.TPCELL_SIZE * Constants.CELLS_X, 
-                                            Constants.TPCELL_SIZE * Constants.CELLS_Y);
-
-                dc.DrawRectangle(Brushes.Red, null, anotherbackground);
-
-            }
-        }
-
+      
 
         private void drawCells()
         {

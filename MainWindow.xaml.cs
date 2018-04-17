@@ -11,12 +11,14 @@ namespace Notadesigner.ConwaysLife
     {
 
         public Tiles tiles = new Tiles();
-        public TileModel model = new TileModel();
+        public TileEdModel tileEdModel = new TileEdModel();
 
         public PaletteModel palettemodel = new PaletteModel(Constants.defaultPalette);
         public SelectedColourModel selectedcolours = new SelectedColourModel(Constants.defaultPalette);
         public Save save = new Save();
         public Load load = new Load();
+        public UndoRedo undoredo = new UndoRedo();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -25,51 +27,50 @@ namespace Notadesigner.ConwaysLife
             //model.Update is the event.
             //Upon event "Update" occurring
             //delegate in BoardModel calls MainWindow.model_update
-            this.model.Update += new TileModel.OnUpdate(model_Update);
-            palettemodel.Update += new PaletteModel.OnUpdate(palette_Update);
-            selectedcolours.Update += new SelectedColourModel.OnUpdate(selectedcolours_Update);
-            model.Init(tiles);
-            tpview.Update(tiles.TileList, palettemodel.currentPalette);
+            this.tileEdModel.Update += new TileEdModel.OnUpdate(TileEd_Update);
+            palettemodel.Update += new PaletteModel.OnUpdate(Palette_Update);
+            selectedcolours.Update += new SelectedColourModel.OnUpdate(Selectedcolours_Update);
+            tileEdModel.Init(tiles);
+            tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
             //    this.TPmodel.Update += new TilePaletteModel.OnUpdate(TPmodel_Update);
         }
 
-		void view_Click(object sender, ClickEventArgs e)
+		void View_Click(object sender, ClickEventArgs e)
 		{
-			this.model.ToggleCell(e.X, e.Y, e.BUTTON);
+			this.tileEdModel.ToggleCell(e.X, e.Y, e.BUTTON);
 		}
 
-        void model_Update(object sender)
+        void TileEd_Update(object sender)
         {
-            //This is the event handler called by Boardmodel when it fires the Update event.
-            //i.e model_Update handler now calls BoardView.Update method and passes an array of bytes
-            //(returned by the BoardModel.Cells method) as a paremeter.
-           
-            view.Update(this.model.Cells(tiles));
-            tpview.Update(tiles.TileList, palettemodel.currentPalette);
-          
+            //This is the event handler called by TileEdModel when it fires the Update event.
+            
+            
+            tileEdView.Update(this.tileEdModel.Cells(tiles));
+            tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
+        
         }
 
      
-        void palette_Update(object sender)
+        void Palette_Update(object sender)
         {
             paletteview.Update(palettemodel.currentPalette);
-            tpview.Update(tiles.TileList, palettemodel.currentPalette);
+            tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
             selectedcolours.PaletteUpdated(palettemodel.ChangedPaletteIndex, palettemodel.currentPalette);
             scview.Update(selectedcolours.currentPalette);
-            model.PaletteUpdated(selectedcolours.pal);
-            view.Update(model.Cells(tiles), palettemodel.currentPalette);
+            tileEdModel.PaletteUpdated(selectedcolours.pal);
+            tileEdView.Update(tileEdModel.Cells(tiles), palettemodel.currentPalette);
         }
 
-        void selectedcolours_Update(object sender)
+        void Selectedcolours_Update(object sender)
         {
             scview.Update(selectedcolours.currentPalette);
         }
 
 
 
-        private void tpview_Click(object sender, ClickEventArgs e)
+        private void Tpview_Click(object sender, ClickEventArgs e)
         {
-            model.SelectTile(e.X, e.Y);
+            tileEdModel.SelectTile(e.X, e.Y);
         }
 
         private void paletteview_Click(object sender, ClickEventArgs e)
@@ -77,29 +78,37 @@ namespace Notadesigner.ConwaysLife
             palettemodel.ChangeColour(e.X, e.Y);
         }
 
-        private void scview_Click(object sender, ClickEventArgs e)
+        private void Scview_Click(object sender, ClickEventArgs e)
         {
              selectedcolours.ChangeColour(e.X, e.Y, palettemodel.currentPalette);
-             model.PaletteUpdated(selectedcolours.pal);
+             tileEdModel.PaletteUpdated(selectedcolours.pal);
            // view.Update(model.Cells, palettemodel.currentPalette);
         }
 
         private void tstLoad_Click(object sender, RoutedEventArgs e)
         {
-            load.FromFile(tiles);
+           load.FromFile(tiles);
 
            
-            //this.model.AddTile();
+          //  this.model.AddTile();
 
         }
 
-        private void clear_Click(object sender, RoutedEventArgs e)
+        private void Clear_Click(object sender, RoutedEventArgs e)
         {
             //this.btnAdd.IsEnabled = true;
            
-            this.model.Clear();
+            this.tileEdModel.Clear();
         }
 
+        private void Undo_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            tileEdModel.Undo(tiles);
+            tileEdView.Update(this.tileEdModel.Cells(tiles));
+            tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
+        }
     
 
         private void tstSave_Click(object sender, RoutedEventArgs e)

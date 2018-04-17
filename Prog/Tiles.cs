@@ -7,6 +7,8 @@ namespace Notadesigner.ConwaysLife.Game
 {
     public class Tiles
     {
+       
+
         public byte TMnumber;
         public List<Tile> TileList = new List<Tile>();
         public Tiles()
@@ -23,5 +25,10 @@ namespace Notadesigner.ConwaysLife.Game
             TileList.Add(new Tile(TMnumber) );   
         
         }
+
+
+       
+
+        
     }
 }

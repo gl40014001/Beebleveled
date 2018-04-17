@@ -3,7 +3,7 @@ using System.Windows.Threading;
 using System.Collections.Generic;
 namespace Notadesigner.ConwaysLife.Game
 {
-	public class TileModel
+	public class TileEdModel
 	{
         public delegate void OnUpdate(object sender);
         public event OnUpdate Update;
@@ -11,40 +11,51 @@ namespace Notadesigner.ConwaysLife.Game
         private byte[] current;
         public byte maxTNum = 0;
         public byte TmTileNumber = 0;
-       // public Tiles tiles = new Tiles();
         public int NumColours = 2;
         public byte ForegroundCol = 0;
         public byte BackgroundCol = 1;
+        public Tile EdTile;
         public byte[] Cells(Tiles tiles)
         {
-            
-            
-                return this.current = tiles.TileList[TmTileNumber].Pixels;
-            
+            EdTile = tiles.TileList[TmTileNumber];
+            return this.current = tiles.TileList[TmTileNumber].Pixels;      
         }
 
+      
 
-		public TileModel()
+		public TileEdModel()
 		{
-            
+
         }
 
         public void Init(Tiles tiles)
         {
+            EdTile = tiles.TileList[TmTileNumber];
             this.current = tiles.TileList[TmTileNumber].Pixels;
         }
 		
 		public void Clear()
 		{
-			for (int i = 0; i < this.current.Length; i++)
+            byte[] localPixels = new byte[Constants.CELLS_X * Constants.CELLS_Y];
+
+
+            for (int i = 0; i < localPixels.Length; i++)
 			{
-				this.current[i] = 0;
+				localPixels[i] = 0;
             }
+            current = localPixels;
 
             if (null != this.Update)
                 this.Update(this);   
 		}
 
+
+        public void Undo(Tiles tiles)
+        {
+            tiles.TileList[TmTileNumber].Undo();
+            if (null != this.Update)
+                this.Update(this);
+        }
 
 		public void NextTile()
 		{
@@ -67,16 +78,7 @@ namespace Notadesigner.ConwaysLife.Game
         }
 
 
-		//public void AddTile()
-		//{
-      // /     maxTNum++;
-        //    tiles.Add(maxTNum);
-         //   TmTileNumber = maxTNum;
-
-          //  if (null != this.Update)
-          //      this.Update(this);
-		//}
-
+	
 
         public void PaletteUpdated(int[] selectedcolours)
         {
@@ -89,16 +91,24 @@ namespace Notadesigner.ConwaysLife.Game
              
 
         }
+
+
         public void ToggleCell(int x, int y, Constants.Mousebutton button)
 		{
 			int i = y * Constants.CELLS_X + x;
             if (i < Constants.CELLS_X * Constants.CELLS_Y)
             {
                 if (button == Constants.Mousebutton.Left)
-                   this.current[i] = ForegroundCol;
+                {
+              
+                    EdTile.Do(i,ForegroundCol);
+                }
 
                 if (button == Constants.Mousebutton.Right)
-                    this.current[i] = BackgroundCol; 
+                {
+                  
+                    EdTile.Do(i,BackgroundCol);
+                }
             }
 
 			if (null != this.Update)
