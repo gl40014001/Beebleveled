@@ -11,6 +11,7 @@ namespace Notadesigner.ConwaysLife.Game
 
         public byte TMnumber;
         public List<Tile> TileList = new List<Tile>();
+       
         public Tiles()
         {
 

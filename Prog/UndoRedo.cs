@@ -17,17 +17,8 @@ namespace Notadesigner.ConwaysLife.Game
            
             if (Undo.Count > 0)
             {
-
-              //  if (Redo.Count == 0 )
-             //   {
-             //       Redo.Push(Undo.Pop());
-              //      myPixels = Undo.Pop();
-              //  }
-              //  else
-             //   {
-                    Redo.Push(Undo.Peek());
-                    myPixels = Undo.Pop();
-               // }
+                Redo.Push(Undo.Peek());
+                myPixels = Undo.Pop();
             }
            
             

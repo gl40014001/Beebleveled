@@ -7,9 +7,14 @@ namespace Notadesigner.ConwaysLife.Game
     {
         public static double CELL_SIZE = 20;
         public static double TPCELL_SIZE = 5;
+        public static double LVL_TILE_SIZE = 3;
         public static int CELLS_X = 16;
 
         public static int CELLS_Y = 16;
+
+        public static int LEVEL_X = 16;
+        public static int LEVEL_Y = 16;
+        public static string SEPARATOR = "SPLIT";
 
         public static Colour[] defaultPalette =
         {
@@ -42,6 +47,7 @@ namespace Notadesigner.ConwaysLife.Game
         }
         public static SolidColorBrush GetWindowsColour(Colour beebColour)
         {
+            
             switch (beebColour)
             {
                 case Colour.Black: return Brushes.Black;

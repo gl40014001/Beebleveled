@@ -11,6 +11,7 @@ namespace Notadesigner.ConwaysLife.Game
         public byte[] prevPixels;
         public byte tileNumber;
         public UndoRedo undoredo = new UndoRedo();
+        
 
         public Tile DeepCopy()
         {
@@ -67,5 +68,11 @@ namespace Notadesigner.ConwaysLife.Game
             
         }
 
+        public void nukeUndoRedoObj()
+        {
+            undoredo = null;
+            undoredo = new UndoRedo();
+        }
+        
     }
 }

@@ -7,13 +7,14 @@ namespace Notadesigner.ConwaysLife.Game
 {
     public class Load
     {
-        public void FromFile(Tiles tiles)
+        public void FromFile(Tiles tiles, PaletteModel palette, SelectedColourModel selectedcolours)
         {
             var stuff = System.IO.File.ReadAllText("blah.txt");
-
-            var deserialized = new JavaScriptSerializer();
-            tiles.TileList = deserialized.Deserialize<List<Tile>>(stuff);
-
+            string[] separatingChars = { Constants.SEPARATOR };
+            string[] SplitData = stuff.Split(separatingChars, System.StringSplitOptions.None);
+          //  var deserialized = new JavaScriptSerializer();
+          //  tiles.TileList = deserialized.Deserialize<List<Tile>>(stuff);
+            //palette.pal = deserialized.Deserialize<>
         }
     }
 }

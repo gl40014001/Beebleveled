@@ -18,11 +18,12 @@ namespace Notadesigner.ConwaysLife
         public Save save = new Save();
         public Load load = new Load();
         public UndoRedo undoredo = new UndoRedo();
-
+        public LevelWindow levelwindow = new LevelWindow();
         public MainWindow()
         {
             InitializeComponent();
-
+           
+           
             //OnUpdate is a delegate which points to a function that is really an event handler.
             //model.Update is the event.
             //Upon event "Update" occurring
@@ -32,10 +33,14 @@ namespace Notadesigner.ConwaysLife
             selectedcolours.Update += new SelectedColourModel.OnUpdate(Selectedcolours_Update);
             tileEdModel.Init(tiles);
             tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
+            
             //    this.TPmodel.Update += new TilePaletteModel.OnUpdate(TPmodel_Update);
+            levelwindow.Show();
+
+            levelwindow.levelEdView.Update(tiles.TileList, palettemodel.currentPalette, tileEdModel.TmTileNumber);
         }
 
-		void View_Click(object sender, ClickEventArgs e)
+        void View_Click(object sender, ClickEventArgs e)
 		{
 			this.tileEdModel.ToggleCell(e.X, e.Y, e.BUTTON);
 		}
@@ -71,6 +76,7 @@ namespace Notadesigner.ConwaysLife
         private void Tpview_Click(object sender, ClickEventArgs e)
         {
             tileEdModel.SelectTile(e.X, e.Y);
+            levelwindow.levelEdView.Update(tiles.TileList, palettemodel.currentPalette, tileEdModel.TmTileNumber);
         }
 
         private void paletteview_Click(object sender, ClickEventArgs e)
@@ -87,7 +93,7 @@ namespace Notadesigner.ConwaysLife
 
         private void tstLoad_Click(object sender, RoutedEventArgs e)
         {
-           load.FromFile(tiles);
+           load.FromFile(tiles,palettemodel,  selectedcolours);
 
            
           //  this.model.AddTile();
@@ -117,6 +123,11 @@ namespace Notadesigner.ConwaysLife
 
         }
 
-     
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+           // if (lw != null)
+            levelwindow.Close();
+            
+        }
     }
 }

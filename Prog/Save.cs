@@ -10,14 +10,24 @@ namespace Notadesigner.ConwaysLife.Game
     {
         public void ToFile(Tiles tiles, PaletteModel palette, SelectedColourModel selectedcolours)
         {
+            
             var serializer = new JavaScriptSerializer();
-            var serializedResult = serializer.Serialize(tiles.TileList);
-
+            var serializedResult = 
+                        serializer.Serialize (tiles.TileList.Select (x=> new { x.tileNumber, x.Pixels } ));
             var serPalette = new JavaScriptSerializer();
             var serPaletteResult = serPalette.Serialize(palette.CurrentPalette);
             var serPalRes = serPalette.Serialize(palette.pal);
             var serSelColRes = serPalette.Serialize(selectedcolours.pal);
-            System.IO.File.WriteAllText("blah.txt",serializedResult);
+
+            var AllResults =
+                   serializedResult + Constants.SEPARATOR +
+                   serPaletteResult + Constants.SEPARATOR +
+                   serPalRes + Constants.SEPARATOR +
+                   serSelColRes;
+
+
+                   
+            System.IO.File.WriteAllText("blah.txt",AllResults);
         }
         
         
