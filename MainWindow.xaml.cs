@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Notadesigner.ConwaysLife.Game;
+using Microsoft.Win32;
 
 namespace Notadesigner.ConwaysLife
 {
@@ -33,7 +34,7 @@ namespace Notadesigner.ConwaysLife
             selectedcolours.Update += new SelectedColourModel.OnUpdate(Selectedcolours_Update);
             tileEdModel.Init(tiles);
             tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
-            
+           
             //    this.TPmodel.Update += new TilePaletteModel.OnUpdate(TPmodel_Update);
             levelwindow.Show();
 
@@ -93,10 +94,26 @@ namespace Notadesigner.ConwaysLife
 
         private void tstLoad_Click(object sender, RoutedEventArgs e)
         {
-           load.FromFile(tiles,palettemodel,  selectedcolours);
 
-           
-          //  this.model.AddTile();
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Level Data (*.txt)|*.txt";
+            if (openFileDialog.ShowDialog() == true)
+            
+                load.FromFile(openFileDialog.FileName, tiles,palettemodel,  selectedcolours, levelwindow.levelEdView.screens);
+
+           // tileEdView.Update(this.tileEdModel.Cells(tiles));
+
+
+            paletteview.Update(palettemodel.currentPalette);
+            tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
+           selectedcolours.PaletteLoad(palettemodel.currentPalette);
+           // scview.Update(selectedcolours.currentPalette);
+            tileEdModel.PaletteUpdated(selectedcolours.pal);
+            tileEdView.Update(tileEdModel.Cells(tiles), palettemodel.currentPalette);
+            levelwindow.levelEdView.Update(tiles.TileList, palettemodel.currentPalette, tileEdModel.TmTileNumber);
+
+            //  this.model.AddTile();
 
         }
 
@@ -119,7 +136,10 @@ namespace Notadesigner.ConwaysLife
 
         private void tstSave_Click(object sender, RoutedEventArgs e)
         {
-            save.ToFile(tiles, palettemodel,selectedcolours);
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Level Data (*.txt)|*.txt";
+            if (saveFileDialog.ShowDialog() == true)
+                save.ToFile(saveFileDialog.FileName, tiles, palettemodel,selectedcolours,levelwindow.levelEdView.screens);
 
         }
 

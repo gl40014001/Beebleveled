@@ -24,10 +24,10 @@ namespace Notadesigner.ConwaysLife.Game
             switch (NumColours)
             {
                 case 4:
-                    CurrentPalette[0] = defaultpalette[pal[0]];
+                    CurrentPalette[0] = defaultpalette[pal[3]];
                     CurrentPalette[1] = defaultpalette[pal[1]];
                     CurrentPalette[2] = defaultpalette[pal[2]];
-                    CurrentPalette[3] = defaultpalette[pal[3]];
+                    CurrentPalette[3] = defaultpalette[pal[0]];
                     break;
             }
 

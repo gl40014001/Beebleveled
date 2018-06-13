@@ -186,8 +186,9 @@ namespace Notadesigner.ConwaysLife.Game
                         yOffset = yOffset + Constants.CELLS_Y+1;
                         xOffset = 0;
                     }
-
+                  
                 }
+                dc.Close();
             }
         }
 

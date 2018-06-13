@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
 
 namespace Notadesigner.ConwaysLife.Game
 {
@@ -14,7 +15,7 @@ namespace Notadesigner.ConwaysLife.Game
 
         public event ClickHandler Click;
 
-        
+
 
         private DrawingVisual[] visuals;
 
@@ -31,7 +32,7 @@ namespace Notadesigner.ConwaysLife.Game
         public Constants.Colour[] defaultPalette;
         private byte SelectedTile;
 
-        
+
 
 
         public LevelEdView()
@@ -44,8 +45,8 @@ namespace Notadesigner.ConwaysLife.Game
             {
                 case 4:
                     DefaultPalette[0] = Constants.Colour.Yellow;
-                    DefaultPalette[1] = Constants.Colour.Green;
-                    DefaultPalette[2] = Constants.Colour.Red;
+                    DefaultPalette[1] = Constants.Colour.Red;
+                    DefaultPalette[2] = Constants.Colour.Green;
                     DefaultPalette[3] = Constants.Colour.Black;
                     break;
             }
@@ -61,12 +62,12 @@ namespace Notadesigner.ConwaysLife.Game
 
         public void Update(List<Tile> TpTiles, Constants.Colour[] Palette, byte selectedTile)
         {
-
             Tiles = TpTiles;
             pixels = Tiles[0].Pixels;
 
             DefaultPalette = Palette;
 
+            DisplayScreen(screenNo); 
             SelectedTile = selectedTile;
             // this.drawGrid();
             this.drawTiles();
@@ -142,14 +143,26 @@ namespace Notadesigner.ConwaysLife.Game
             set { this.defaultPalette = value; }
         }
 
+        
+        public LevelScreens screens = new LevelScreens();
+        private List<LevelScreen> screen;
+        public int[] LevelMap = new int[256];
+        public int screenNo = 0;
+        public void DisplayScreen(int ScreenNo)
+        {
+            screenNo = ScreenNo;
+            screen = screens.list;
 
-        private int[] LevelMap = new int[256];
+            LevelMap = screen[ScreenNo].TileRef;
+            drawTiles();
+
+        }
 
         public void PutTileHere(int x, int y)
         {
-            int index = (x + (y * ((int)TILES_PER_ROW+1)) ) ;
+            int index = (x + (y * ((int)TILES_PER_ROW + 1)));
             LevelMap[index] = (int)SelectedTile;
-           drawTiles();
+            drawTiles();
 
         }
         private void AddTileToLevel()
@@ -161,17 +174,18 @@ namespace Notadesigner.ConwaysLife.Game
         private void drawTiles()
         {
             if (null == pixels)
-                return;
+               return;
 
-            
-           
+
+
+
             double TileWidth = Constants.CELLS_X * Constants.LVL_TILE_SIZE;
             double TileHeight = Constants.CELLS_Y * Constants.LVL_TILE_SIZE;
 
             using (DrawingContext dc = this.cells.RenderOpen())
             {
-                Rect rect = new Rect(0,0, Constants.LVL_TILE_SIZE, Constants.LVL_TILE_SIZE);
-                
+                Rect rect = new Rect(0, 0, Constants.LVL_TILE_SIZE, Constants.LVL_TILE_SIZE);
+
                 double yOffset = 0;
                 double xOffset = 0;
                 int xOutlineCount = 0;
@@ -183,23 +197,23 @@ namespace Notadesigner.ConwaysLife.Game
                     pixels = Tiles[TileRef].Pixels;
                     int index = 0;
 
-                    Point point = new Point(xOffset,yOffset);
+                    Point point = new Point(xOffset, yOffset);
                     point.Offset(xOutlineCount * OUTLINE_WIDTH, yOutlineCount * OUTLINE_WIDTH);
-                                
+
                     for (int y = 0; y < Constants.CELLS_Y; y++)
                     {
                         for (int x = 0; x < Constants.CELLS_X; x++)
                         {
-                            point.Offset(Constants.LVL_TILE_SIZE, 0 );
+                            point.Offset(Constants.LVL_TILE_SIZE, 0);
                             rect.Location = point;
-                                
+
                             dc.DrawRectangle(
                                 Constants.GetWindowsColour(DefaultPalette[pixels[index]]),
                                 null,
                                 rect);
                             index++;
                         }
-                        
+
                         point.Offset(-(TileWidth), Constants.LVL_TILE_SIZE);
                     }
 
@@ -215,11 +229,12 @@ namespace Notadesigner.ConwaysLife.Game
                     }
                 }
                 dc.Close();
-
+                
             }
-            
-        }
 
-        
+
+
+
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Notadesigner.ConwaysLife.Game
         public byte TmTileNumber = 0;
         public int NumColours = 2;
         public byte ForegroundCol = 0;
-        public byte BackgroundCol = 1;
+        public byte BackgroundCol = 3;
         public Tile EdTile;
         public byte[] Cells(Tiles tiles)
         {

@@ -15,3 +15,6 @@ C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\ConwaysLife.pd
 C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\LevelEditor.csprojResolveAssemblyReference.cache
 C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\LevelWindow.g.cs
 C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\LevelWindow.baml
+C:\Users\jason\source\repos\LevelEditor\conwayslife\bin\Debug\WriteableBitmapEx.Wpf.dll
+C:\Users\jason\source\repos\LevelEditor\conwayslife\bin\Debug\WriteableBitmapEx.Wpf.pdb
+C:\Users\jason\source\repos\LevelEditor\conwayslife\bin\Debug\WriteableBitmapEx.Wpf.xml

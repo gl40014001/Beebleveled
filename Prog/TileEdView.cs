@@ -43,10 +43,10 @@ namespace Notadesigner.ConwaysLife.Game
             switch (NumColours)
             {
                 case 4:
-                    CurrentPalette[0] = Constants.defaultPalette[0];
+                    CurrentPalette[0] = Constants.defaultPalette[3];
                     CurrentPalette[1] = Constants.defaultPalette[1];
                     CurrentPalette[2] = Constants.defaultPalette[2];
-                    CurrentPalette[3] = Constants.defaultPalette[3];
+                    CurrentPalette[3] = Constants.defaultPalette[0];
                     break;
             }
 
@@ -179,7 +179,8 @@ namespace Notadesigner.ConwaysLife.Game
 			using (DrawingContext dc = this.dvGrid.RenderOpen())
 			{
                 draw.TileGrid(dc, gridoutline);
-			}
+                dc.Close();
+            }
 		}
 
 		private void DrawTile()
@@ -190,8 +191,10 @@ namespace Notadesigner.ConwaysLife.Game
 
             using (DrawingContext dc = this.dvPixels.RenderOpen())
 			{
-                draw.Tile(dc, pixels, CurrentPalette, OUTLINE_WIDTH);            
-			}
+                draw.Tile(dc, pixels, CurrentPalette, OUTLINE_WIDTH);
+                dc.Close();
+            }
+            
 		}
 
         public Constants.Colour[] CurrentPalette

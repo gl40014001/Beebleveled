@@ -15,7 +15,7 @@ namespace Notadesigner.ConwaysLife.Game
         public Tiles()
         {
 
-            for (TMnumber = 0; TMnumber <= 15; TMnumber++)
+            for (TMnumber = 0; TMnumber <= 31; TMnumber++)
             {
                 Add(TMnumber);
             }

@@ -36,8 +36,8 @@ namespace Notadesigner.ConwaysLife.Game
             switch (NumColours)
             {
                 case 2:
-                    Current[0] = Constants.defaultPalette[0];
-                    Current[1] = Constants.defaultPalette[1];
+                    Current[0] = Constants.defaultPalette[3];
+                    Current[1] = Constants.defaultPalette[0];
               
                     break;
             }

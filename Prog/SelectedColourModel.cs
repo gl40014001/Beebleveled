@@ -22,8 +22,8 @@ namespace Notadesigner.ConwaysLife.Game
             {
 
                 case 2:
-                    Current[0] = defaultpalette[0];
-                    Current[1] = defaultpalette[1];
+                    Current[0] = defaultpalette[3];
+                    Current[1] = defaultpalette[0];
  
                     break;
             }
@@ -42,6 +42,18 @@ namespace Notadesigner.ConwaysLife.Game
 
 
         }
+
+        public void PaletteLoad(Constants.Colour[] palette)
+        {
+           
+
+           // currentPalette = palette;
+            Current[0] = palette[pal[0]];
+            Current[1] = palette[pal[1]];
+
+            Update(this);
+        }
+
         public void ChangeColour(int x, int y, Constants.Colour[] palette)
         {
             int index = (x + (y * 4));
