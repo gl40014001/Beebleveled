@@ -59,6 +59,18 @@ namespace Notadesigner.ConwaysLife.Game
            
         }
 
+        public void Redo()
+        {
+            Pixels = undoredo.CmdRedo(Pixels);
+        }
+
+        public void Do (byte[] mypixels)
+        {
+            pixels.CopyTo(prevPixels, 0);
+            undoredo.CmdDo(prevPixels);
+            Pixels = mypixels;
+
+        }
         public void Do(int index, byte pixelValue)
         {
             pixels.CopyTo(prevPixels, 0);
@@ -68,11 +80,11 @@ namespace Notadesigner.ConwaysLife.Game
             
         }
 
-        public void nukeUndoRedoObj()
-        {
-            undoredo = null;
-            undoredo = new UndoRedo();
-        }
+      //  public void nukeUndoRedoObj()
+        //{
+         //   undoredo = null;
+           // undoredo = new UndoRedo();
+        //}
         
     }
 }

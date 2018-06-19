@@ -64,8 +64,8 @@ namespace Notadesigner.ConwaysLife.Game
 
             Current[index] = palette[pal[index]];
 
-            if (null != this.Update)
-                this.Update(this);
+            if (null != Update)
+                Update(this);
         }
 
 

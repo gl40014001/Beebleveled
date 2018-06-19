@@ -168,9 +168,9 @@ namespace Notadesigner.ConwaysLife.Game
 			this.previous.X = x;
 			this.previous.Y = y;
 			
-			if (null != this.Click)
+			if (null != Click)
 			{
-				this.Click(this, new ClickEventArgs(x, y, mbpressed));
+				Click(this, new ClickEventArgs(x, y, mbpressed));
 			}
 		}
 

@@ -17,7 +17,8 @@ namespace Notadesigner.ConwaysLife.Game
            
             if (Undo.Count > 0)
             {
-                Redo.Push(Undo.Peek());
+                Redo.Push(myPixels);
+
                 myPixels = Undo.Pop();
             }
            
@@ -31,7 +32,7 @@ namespace Notadesigner.ConwaysLife.Game
 
             byte[] myPixels = new byte[Constants.CELLS_X * Constants.CELLS_Y];  
             pixels.CopyTo(myPixels,0);
-
+            
          
 
             Undo.Push(myPixels);
@@ -40,16 +41,20 @@ namespace Notadesigner.ConwaysLife.Game
 
         public byte[] CmdRedo(byte[] pixels)
         {
+            byte[] myPixels = new byte[Constants.CELLS_X * Constants.CELLS_Y];
 
             if (Redo.Count >0)
             {
                
-                Undo.Push(Redo.Peek());
-                pixels = Redo.Pop();
+                Undo.Push(pixels);
+                myPixels = Redo.Pop();
+                return myPixels;
 
-                
             }
-            return pixels;
+            else
+            {
+                return pixels;
+            }
         }
 
 

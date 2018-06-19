@@ -70,7 +70,7 @@ namespace Notadesigner.ConwaysLife.Game
             DisplayScreen(screenNo); 
             SelectedTile = selectedTile;
             // this.drawGrid();
-            this.drawTiles();
+            this.DrawTiles();
         }
 
 
@@ -105,7 +105,7 @@ namespace Notadesigner.ConwaysLife.Game
         protected override void OnRender(DrawingContext drawingContext)
         {
             //this.drawGrid();
-            this.drawTiles();
+            this.DrawTiles();
         }
 
 
@@ -120,7 +120,7 @@ namespace Notadesigner.ConwaysLife.Game
             int y = (int)((pt.Y) / (Constants.LVL_TILE_SIZE * Constants.CELLS_Y + 1));
 
             if (null != this.Click)
-                this.Click(this, new ClickEventArgs(x, y));
+                Click(this, new ClickEventArgs(x, y));
         }
 
 
@@ -128,7 +128,7 @@ namespace Notadesigner.ConwaysLife.Game
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
-            this.isMouseDown = false;
+            isMouseDown = false;
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -154,7 +154,7 @@ namespace Notadesigner.ConwaysLife.Game
             screen = screens.list;
 
             LevelMap = screen[ScreenNo].TileRef;
-            drawTiles();
+            DrawTiles();
 
         }
 
@@ -162,7 +162,7 @@ namespace Notadesigner.ConwaysLife.Game
         {
             int index = (x + (y * ((int)TILES_PER_ROW + 1)));
             LevelMap[index] = (int)SelectedTile;
-            drawTiles();
+            DrawTiles();
 
         }
         private void AddTileToLevel()
@@ -171,7 +171,7 @@ namespace Notadesigner.ConwaysLife.Game
         }
 
 
-        private void drawTiles()
+        private void DrawTiles()
         {
             if (null == pixels)
                return;

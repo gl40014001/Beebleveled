@@ -47,7 +47,7 @@ namespace Notadesigner.ConwaysLife.Game
             this.AddVisualChild(this.grid);
             this.AddLogicalChild(this.grid);
             this.visuals = new DrawingVisual[] { this.grid };
-            this.drawGrid();
+            this.DrawGrid();
            
         }
 
@@ -55,13 +55,13 @@ namespace Notadesigner.ConwaysLife.Game
         {
             Current = Palette;
          
-            this.drawGrid();
+            this.DrawGrid();
           
         }
 
         public void Clear()
         {
-            this.drawGrid();
+            this.DrawGrid();
         }
 
         protected override int VisualChildrenCount
@@ -93,7 +93,7 @@ namespace Notadesigner.ConwaysLife.Game
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            this.drawGrid();
+            this.DrawGrid();
             
         }
 
@@ -109,8 +109,8 @@ namespace Notadesigner.ConwaysLife.Game
             int y = (int)((pt.Y) / (Constants.TPCELL_SIZE * Constants.CELLS_Y));
 
      
-            if (null != this.Click)
-                this.Click(this, new ClickEventArgs(x, y));
+            if (null != Click)
+                Click(this, new ClickEventArgs(x, y));
         }
 
 
@@ -135,7 +135,7 @@ namespace Notadesigner.ConwaysLife.Game
         }
 
 
-        private void drawGrid()
+        private void DrawGrid()
         {
             using (DrawingContext dc = this.grid.RenderOpen())
             {

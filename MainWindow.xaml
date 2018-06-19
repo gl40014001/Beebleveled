@@ -7,17 +7,21 @@
     <DockPanel Name="layout">
         <ToolBar DockPanel.Dock="Top">
           
-            <Button Content="tstLoad" Name="btnLoad" Height="23" Width="75" Margin="5" Click="tstLoad_Click" />
+            <Button Content="Open" Name="btnLoad" Height="23" Width="75" Margin="5" Click="TstLoad_Click" />
+            <Button Content="Save" Name="btntstSave" Height="23" Width="75" Margin="5" Click="TstSave_Click" />
             <Button Content="Clear" Name="btnClear" Height="23" Width="75" Margin="5" Click="Clear_Click" />
             <Button Content="Undo" Name="btnUndo" Height="23" Width="75" Margin="5" Click="Undo_Click" />
+            <Button Content="Redo" Name="btnRedo" Height="23" Width="75" Margin="5" Click="Redo_Click" />
+
+            <Button Content="Export" Name="btnExport" Height="23" Width="75" Margin="5" Click="Export_Click" />
         </ToolBar>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <life:TilePanelView x:Name="tilePanelView" DockPanel.Dock="Top" Height="700" Width="360" Margin="10" Click="Tpview_Click" VerticalAlignment="Top"></life:TilePanelView>
         </ScrollViewer>
             <life:TileEdView x:Name="tileEdView" DockPanel.Dock="Top"  Margin="10" Click="View_Click"></life:TileEdView>
         <life:SelectedColourView x:Name="scview" DockPanel.Dock="Top" Margin="10" Click="Scview_Click" Height="83"></life:SelectedColourView>
-        <life:PaletteView x:Name="paletteview" DockPanel.Dock="Top" Margin="10,10" Click="paletteview_Click" Height="83"></life:PaletteView>
+        <life:PaletteView x:Name="paletteview" DockPanel.Dock="Top" Margin="10,10" Click="Paletteview_Click" Height="83"></life:PaletteView>
         
-        <Button Content="tstSave" Name="btntstSave" DockPanel.Dock="Left" Height="25" Width="75" Margin="10,0,5,91" Click="tstSave_Click" HorizontalAlignment="Left" MinWidth="75" MinHeight="25" VerticalAlignment="Bottom" />
+        
     </DockPanel>
 </Window>

@@ -43,10 +43,13 @@ namespace Notadesigner.ConwaysLife.Game
 			{
 				localPixels[i] = 0;
             }
-            current = localPixels;
+           // current = localPixels;
+            EdTile.Do(localPixels);
+
+           
 
             if (null != this.Update)
-                this.Update(this);   
+                Update(this);   
 		}
 
 
@@ -54,10 +57,19 @@ namespace Notadesigner.ConwaysLife.Game
         {
             tiles.TileList[TmTileNumber].Undo();
             if (null != this.Update)
-                this.Update(this);
+                Update(this);
         }
 
-		public void NextTile()
+
+        public void Redo(Tiles tiles)
+        {
+            tiles.TileList[TmTileNumber].Redo();
+            if (null != this.Update)
+                Update(this);
+        }
+
+
+        public void NextTile()
 		{
             byte minTileNumber = 0;
             TmTileNumber++;
@@ -66,7 +78,7 @@ namespace Notadesigner.ConwaysLife.Game
              TmTileNumber = minTileNumber;
 
             if (null != this.Update)
-                this.Update(this);
+                Update(this);
 		}
 
         public void SelectTile(int x, int y)
@@ -112,7 +124,7 @@ namespace Notadesigner.ConwaysLife.Game
             }
 
 			if (null != this.Update)
-				this.Update(this);
+				Update(this);
 		}
         
 

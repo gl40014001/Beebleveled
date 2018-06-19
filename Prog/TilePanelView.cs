@@ -64,7 +64,7 @@ namespace Notadesigner.ConwaysLife.Game
             DefaultPalette = Palette;
 
           // this.drawGrid();
-            this.drawCells();
+            this.DrawCells();
         }
 
     
@@ -99,7 +99,7 @@ namespace Notadesigner.ConwaysLife.Game
         protected override void OnRender(DrawingContext drawingContext)
         {
             //this.drawGrid();
-            this.drawCells();
+            this.DrawCells();
         }
 
 
@@ -140,7 +140,7 @@ namespace Notadesigner.ConwaysLife.Game
 
       
 
-        private void drawCells()
+        private void DrawCells()
         {
 
             if (null == values)

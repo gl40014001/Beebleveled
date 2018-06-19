@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Debug\
+C:\Users\jason\source\repos\LevelEditor\conwayslife\obj\x86\Release\
 Notadesigner.ConwaysLife
 none
 false
-DEBUG;TRACE
+TRACE
 
 2-732304528
 
-26471594050
+30-205511053
 15-53034012
 MainWindow.xaml;LevelWindow.xaml;
 
-False
+True
 

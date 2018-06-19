@@ -80,7 +80,7 @@ namespace Notadesigner.ConwaysLife
             levelwindow.levelEdView.Update(tiles.TileList, palettemodel.currentPalette, tileEdModel.TmTileNumber);
         }
 
-        private void paletteview_Click(object sender, ClickEventArgs e)
+        private void Paletteview_Click(object sender, ClickEventArgs e)
         {
             palettemodel.ChangeColour(e.X, e.Y);
         }
@@ -92,15 +92,18 @@ namespace Notadesigner.ConwaysLife
            // view.Update(model.Cells, palettemodel.currentPalette);
         }
 
-        private void tstLoad_Click(object sender, RoutedEventArgs e)
+        private void TstLoad_Click(object sender, RoutedEventArgs e)
         {
 
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Level Data (*.txt)|*.txt";
-            if (openFileDialog.ShowDialog() == true)
+            OpenFileDialog MyOpenFileDialog = new OpenFileDialog
+            {
+                Filter = "Level Data (*.txt)|*.txt"
+            };
+
+            if (MyOpenFileDialog.ShowDialog() == true)
             
-                load.FromFile(openFileDialog.FileName, tiles,palettemodel,  selectedcolours, levelwindow.levelEdView.screens);
+                load.FromFile(MyOpenFileDialog.FileName, tiles,palettemodel,  selectedcolours, levelwindow.levelEdView.screens);
 
            // tileEdView.Update(this.tileEdModel.Cells(tiles));
 
@@ -132,15 +135,37 @@ namespace Notadesigner.ConwaysLife
             tileEdView.Update(this.tileEdModel.Cells(tiles));
             tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
         }
-    
 
-        private void tstSave_Click(object sender, RoutedEventArgs e)
+
+        private void Redo_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Level Data (*.txt)|*.txt";
+            tileEdModel.Redo(tiles);
+            tileEdView.Update(this.tileEdModel.Cells(tiles));
+            tilePanelView.Update(tiles.TileList, palettemodel.currentPalette);
+        }
+
+        private void TstSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Level Data (*.txt)|*.txt"
+            };
+
             if (saveFileDialog.ShowDialog() == true)
                 save.ToFile(saveFileDialog.FileName, tiles, palettemodel,selectedcolours,levelwindow.levelEdView.screens);
 
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog ExportDialog = new SaveFileDialog();
+
+            if (ExportDialog.ShowDialog() == true)
+            {
+                ExportData Export = new ExportData();
+                Export.ToBeebFiles(ExportDialog.FileName, tiles, levelwindow.levelEdView.screens);
+            }
+            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -80,6 +80,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Prog\ExportData.cs" />
+    <Compile Include="Prog\LeftShift.cs" />
     <Compile Include="Prog\LevelScreen.cs" />
     <Compile Include="Prog\LevelScreens.cs" />
     <Compile Include="Prog\LevelEdView.cs" />
