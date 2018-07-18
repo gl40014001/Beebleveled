@@ -143,12 +143,15 @@ namespace Notadesigner.ConwaysLife.Game
         {
             byte beebTileByte = 0;
             byte shiftedPixel;
+            int j = 3;
             for (int i = 0; i<=3 ; i++)
             {
-                int beebPixel = (int)BeebPixels[i] << i;
+                int beebPixel = (int)BeebPixels[i] << j;
                 shiftedPixel = (byte)beebPixel;
                 int orResult = (int)shiftedPixel | (int)beebTileByte;
                 beebTileByte = (byte)orResult;
+                j--;
+
             }
 
             return beebTileByte;

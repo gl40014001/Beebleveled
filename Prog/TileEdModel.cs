@@ -85,8 +85,14 @@ namespace Notadesigner.ConwaysLife.Game
         {
             TmTileNumber = (byte)(x+(y*4));
 
-            if (null != Update)
-                Update(this);
+            bool ispositive = TmTileNumber >= 0;
+
+
+            if (TmTileNumber <= Constants.NUM_OF_TILES && ispositive)
+            {
+                if (null != Update)
+                    Update(this);
+            }
         }
 
 

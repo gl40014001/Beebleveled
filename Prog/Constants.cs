@@ -5,6 +5,7 @@ namespace Notadesigner.ConwaysLife.Game
 {
     public static  class Constants
     {
+        public static int NUM_OF_TILES = 31;
         public static double CELL_SIZE = 20;
         public static double TPCELL_SIZE = 5;
         public static double LVL_TILE_SIZE = 3;
